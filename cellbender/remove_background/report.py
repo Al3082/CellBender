@@ -134,8 +134,11 @@ def generate_summary_plots(input_file: str,
     adata.var['n_removed'] = adata.var[f'n_{input_layer_key}'] - adata.var[f'n_{out_key}']
     adata.var['fraction_removed'] = adata.var['n_removed'] / (adata.var[f'n_{input_layer_key}'] + 1e-5)
     adata.var['fraction_remaining'] = adata.var[f'n_{out_key}'] / (adata.var[f'n_{input_layer_key}'] + 1e-5)
-    adata.var[f'n_{input_layer_key}_cells'] = np.array(adata.layers[input_layer_key][cells].sum(axis=0)).squeeze()
-    adata.var[f'n_{out_key}_cells'] = np.array(adata.layers[out_key][cells].sum(axis=0)).squeeze()
+    #adata.var[f'n_{input_layer_key}_cells'] = np.array(adata.layers[input_layer_key][cells].sum(axis=0)).squeeze()
+    #adata.var[f'n_{out_key}_cells'] = np.array(adata.layers[out_key][cells].sum(axis=0)).squeeze()
+    adata.var[f'n_{input_layer_key}_cells'] = np.array(adata.layers[input_layer_key][cells.values].sum(axis=0)).squeeze()
+    adata.var[f'n_{out_key}_cells'] = np.array(adata.layers[out_key][cells.values].sum(axis=0)).squeeze()
+
     adata.var['n_removed_cells'] = (adata.var[f'n_{input_layer_key}_cells']
                                     - adata.var[f'n_{out_key}_cells'])
     adata.var['fraction_removed_cells'] = (adata.var['n_removed_cells']
