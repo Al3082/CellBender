@@ -784,7 +784,8 @@ def plot_counts_and_probs_per_cell(adata, input_layer_key='raw'):
     else:
         var_logic = ...
 
-    in_counts = np.array(adata.layers[input_layer_key][:, var_logic].sum(axis=1)).squeeze()
+    #in_counts = np.array(adata.layers[input_layer_key][:, var_logic].sum(axis=1)).squeeze()
+    in_counts = np.array(adata.layers[input_layer_key][:, var_logic.values].sum(axis=1)).squeeze()
     # cellbender_counts = np.array(adata.layers['cellbender'][:, var_logic].sum(axis=1)).squeeze()
     order = np.argsort(in_counts)[::-1]
     # plt.semilogy(cellbender_counts[order], '.:', ms=3, color='lightgray', alpha=0.5, label='cellbender')
