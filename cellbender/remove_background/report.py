@@ -372,8 +372,10 @@ def plot_input_umi_curve(inputfile):
 def assess_overall_count_removal(adata, raw_full_adata, input_layer_key='raw', out_key='cellbender'):
     global warnings
     cells = (adata.obs['cell_probability'] > 0.5)
-    initial_counts = adata.layers[input_layer_key][cells].sum()
-    removed_counts = initial_counts - adata.layers[out_key][cells].sum()
+    #initial_counts = adata.layers[input_layer_key][cells].sum()
+    #removed_counts = initial_counts - adata.layers[out_key][cells].sum()
+    initial_counts = adata.layers[input_layer_key][cells.values].sum()
+    removed_counts = initial_counts - adata.layers[out_key][cells.values].sum()
     removed_percentage = removed_counts / initial_counts * 100
     print(f'removed {removed_counts:.0f} counts from non-empty droplets')
     print(f'removed {removed_percentage:.2f}% of the counts in non-empty droplets')
